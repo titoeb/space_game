@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from space_game import game_state, planets, text, write_to_user
+from space_game import game_state, game_texts, planets, write_to_user
 
 
 def select_next_planet(destinations: planets.Destinations) -> planets.Planet:
@@ -15,7 +15,7 @@ def select_next_planet(destinations: planets.Destinations) -> planets.Planet:
 
 
 def initial_state() -> Tuple[planets.Planet, game_state.GameOptions]:
-    print(text.OPENING_MESSAGE)
+    print(game_texts.OPENING_MESSAGE)
 
     return planets.Earth(), game_state.GameOptions(
         engines=False,
@@ -27,18 +27,17 @@ def initial_state() -> Tuple[planets.Planet, game_state.GameOptions]:
 
 def start_space_game():
 
-    current_planet, state_of_game = initial_state()
-    while not state_of_game.game_end:
+    current_planet, current_state_of_game = initial_state()
+    while not current_state_of_game.game_end:
         write_to_user.display_inventory(
-            credits=state_of_game.credits,
-            engines=state_of_game.engines,
-            copilot=state_of_game.engines,
+            credits=current_state_of_game.credits,
+            engines=current_state_of_game.engines,
+            copilot=current_state_of_game.engines,
         )
-        state_of_game = current_planet.run(state_of_game)
+        current_state_of_game = current_planet.run(current_state_of_game)
 
-        if not state_of_game.game_end:
+        if not current_state_of_game.game_end:
             current_planet = select_next_planet(
                 planets.possible_destinations(current_planet)
             )
-
-    print(text.END_CREDITS)
+    print(game_texts.END_CREDITS)
