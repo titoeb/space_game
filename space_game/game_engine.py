@@ -25,17 +25,15 @@ def initial_state() -> game_state.GameState:
     )
 
 
-def travel():
+def start_space_game():
 
     state_of_game = initial_state()
     while not state_of_game.game_end:
-
         write_to_user.display_inventory(
             credits=state_of_game.credits,
             engines=state_of_game.engines,
             copilot=state_of_game.engines,
         )
-
         state_of_game = state_of_game.planet.run(state_of_game)
 
         if not state_of_game.game_end:
