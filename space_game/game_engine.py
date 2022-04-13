@@ -14,10 +14,10 @@ def select_next_planet(destinations: planets.Destinations) -> planets.Planet:
     return destinations.planets[int(choice) - 1]
 
 
-def initial_state() -> game_state.GameState:
+def initial_state() -> Tuple[planets.Planet, game_state.GameOptions]:
     print(text.OPENING_MESSAGE)
-    return game_state.GameState(
-        planet=planets.Earth(),
+
+    return planets.Earth(), game_state.GameOptions(
         engines=False,
         credits=False,
         copilot=False,
@@ -27,17 +27,18 @@ def initial_state() -> game_state.GameState:
 
 def start_space_game():
 
-    state_of_game = initial_state()
+    current_planet, state_of_game = initial_state()
     while not state_of_game.game_end:
         write_to_user.display_inventory(
             credits=state_of_game.credits,
             engines=state_of_game.engines,
             copilot=state_of_game.engines,
         )
-        state_of_game = state_of_game.planet.run(state_of_game)
+        state_of_game = current_planet.run(state_of_game)
 
         if not state_of_game.game_end:
-            state_of_game = state_of_game.travel_to_planet(
-                select_next_planet(planets.possible_destinations(state_of_game.planet))
+            current_planet = select_next_planet(
+                planets.possible_destinations(current_planet)
             )
+
     print(text.END_CREDITS)

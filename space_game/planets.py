@@ -16,8 +16,8 @@ class Destinations:
 class Planet(abc.ABC):
     @abc.abstractstaticmethod
     def run(
-        current_state: game_state.GameState,
-    ) -> game_state.GameState:
+        current_state: game_state.GameOptions,
+    ) -> game_state.GameOptions:
         pass
 
     def __str__(self):
@@ -26,14 +26,14 @@ class Planet(abc.ABC):
 
 class Earth(Planet):
     @staticmethod
-    def run(current_state: game_state.GameState) -> game_state.GameState:
+    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
         print(text.EARTH_DESCRIPTION)
         return current_state
 
 
 class Centauri(Planet):
     @staticmethod
-    def run(current_state: game_state.GameState) -> game_state.GameState:
+    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
         print(text.CENTAURI_DESCRIPTION)
         if not current_state.engines:
             print(text.HYPERDRIVE_SHOPPING_QUESTION)
@@ -47,7 +47,7 @@ class Centauri(Planet):
 
 class Sirius(Planet):
     @staticmethod
-    def run(current_state: game_state.GameState) -> game_state.GameState:
+    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
         print(text.SIRIUS_DESCRIPTION)
         if not current_state.credits:
             print(text.SIRIUS_QUIZ_QUESTION)
@@ -62,7 +62,7 @@ class Sirius(Planet):
 
 class Orion(Planet):
     @staticmethod
-    def run(current_state: game_state.GameState) -> game_state.GameState:
+    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
         if not current_state.copilot:
             print(text.ORION_DESCRIPTION)
             print(text.ORION_HIRE_COPILOT_QUESTION)
@@ -77,7 +77,7 @@ class Orion(Planet):
 
 
 class BlackHole(Planet):
-    def run(self, current_state: game_state.GameState) -> game_state.GameState:
+    def run(self, current_state: game_state.GameOptions) -> game_state.GameOptions:
         print(text.BLACK_HOLE_DESCRIPTION)
         if input() == "yes":
             if current_state.engines and current_state.copilot:

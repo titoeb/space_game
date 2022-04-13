@@ -55,14 +55,14 @@ def solution_input():
 def test_travel(monkeypatch, solution_input):
     """game finishes"""
     monkeypatch.setattr("sys.stdin", solution_input)
-    game_engine.travel()
+    game_engine.start_space_game()
 
 
 def test_output(monkeypatch, capsys, solution_input):
     """text output is not empty"""
     monkeypatch.setattr("sys.stdin", solution_input)
 
-    game_engine.travel()
+    game_engine.start_space_game()
 
     captured = capsys.readouterr()
     assert len(captured.out) > 0
@@ -72,7 +72,7 @@ def test_die(monkeypatch, capsys):
     """player dies"""
     monkeypatch.setattr("sys.stdin", io.StringIO("\n".join(DEATH_BY_BLACK_HOLE)))
 
-    game_engine.travel()
+    game_engine.start_space_game()
 
     captured = capsys.readouterr()
     assert "grain of dust" in captured.out
@@ -84,7 +84,7 @@ def test_output_phrases(monkeypatch, capsys, solution_input, phrase):
     """check for some key phrases in the output"""
     monkeypatch.setattr("sys.stdin", solution_input)
 
-    game_engine.travel()
+    game_engine.start_space_game()
 
     captured = capsys.readouterr()
     assert phrase in captured.out
