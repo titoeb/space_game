@@ -89,7 +89,7 @@ You are on Orion. An icy world inhabited by furry sentients."""
 They promise to join as a copilot if you can answer a question:
 
     What is the answer to question of life, the universe and everything?
-    
+
 What do you answer?"""
 
     @staticmethod
