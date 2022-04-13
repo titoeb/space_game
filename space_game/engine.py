@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import Tuple
 
 from space_game import planets, state, texts, write_to_user
 

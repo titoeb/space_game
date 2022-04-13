@@ -6,7 +6,7 @@ OPENING_MESSAGE = """
 """
 
 HYPERDRIVE_SHOPPING_QUESTION = """There is a brand new hyperdrive with a built-in GPU for sale.
-    
+
 Would you like to buy one [yes/no]"""
 HYPERDRIVE_TOO_EXPENSIVE = """
 You cannot afford it. The GPU is too expensive."""

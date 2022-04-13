@@ -2,10 +2,7 @@ from __future__ import annotations
 
 import abc
 import dataclasses
-from os import curdir
 from typing import List
-
-from pyparsing import Or
 
 from space_game import state, texts
 
