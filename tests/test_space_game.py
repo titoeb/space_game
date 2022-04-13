@@ -5,38 +5,38 @@ from space_game import engine
 
 
 @pytest.fixture
-def solution_input():
-    """Provide the solution of the game into a StringIO object so that it can
-    easily be put into stdin."""
-    return io.StringIO(
-        "\n".join(  # the actual solution to the game
-            [
-                "2",
-                "2",  # go to sirius and win quiz
-                "1",
-                "42",  # hire copilot on orion
-                "1",
-                "yes",  # go to centauri and buy GPU drive
-                "2",
-                "2",
-                "3",
-                "yes",  # jump into black hole
-            ]
-        )
+def solution_on_stdin(monkeypatch):
+    """Provide the solution of the game on stdin, so that the game
+    is successfull when run."""
+    monkeypatch.setattr(
+        "sys.stdin",
+        io.StringIO(
+            "\n".join(  # the actual solution to the game
+                [
+                    "2",
+                    "2",  # go to sirius and win quiz
+                    "1",
+                    "42",  # hire copilot on orion
+                    "1",
+                    "yes",  # go to centauri and buy GPU drive
+                    "2",
+                    "2",
+                    "3",
+                    "yes",  # jump into black hole
+                ]
+            )
+        ),
     )
 
 
-def test_travel(monkeypatch, solution_input):
+def test_travel(solution_on_stdin):
     """Given the solution to the game, test that the game runs through."""
-    monkeypatch.setattr("sys.stdin", solution_input)
     engine.run_space_game()
 
 
-def test_output(monkeypatch, capsys, solution_input):
+def test_output(capsys, solution_on_stdin):
     """Given the actual solution to the game, test that the
     games outputs someting on stdout."""
-    monkeypatch.setattr("sys.stdin", solution_input)
-
     engine.run_space_game()
 
     captured = capsys.readouterr()
@@ -87,11 +87,9 @@ def test_death_by_black_hole(monkeypatch, capsys):
         "THE END",
     ],
 )
-def test_output_phrases(monkeypatch, capsys, solution_input, phrase):
+def test_output_phrases(capsys, solution_on_stdin, phrase):
     """When running the successful solution, test that the game outputs
     some expected phrases."""
-    monkeypatch.setattr("sys.stdin", solution_input)
-
     engine.run_space_game()
 
     captured = capsys.readouterr()
