@@ -27,22 +27,20 @@ class Planet(abc.ABC):
 
 
 class Earth(Planet):
-    EARTH_DESCRIPTION = "\nYou are on Earth. Beautiful is better than ugly."
+    DESCRIPTION = "\nYou are on Earth. Beautiful is better than ugly."
 
     @staticmethod
     def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
-        print(Earth.EARTH_DESCRIPTION)
+        print(Earth.DESCRIPTION)
         return current_state
 
 
 class Centauri(Planet):
-    CENTAURI_DESCRIPTION = (
-        "\nYou are on Alpha Centauri. All creatures are welcome here."
-    )
+    DESCRIPTION = "\nYou are on Alpha Centauri. All creatures are welcome here."
 
     @staticmethod
     def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
-        print(Centauri.CENTAURI_DESCRIPTION)
+        print(Centauri.DESCRIPTION)
         if not current_state.engines:
             print(game_texts.HYPERDRIVE_SHOPPING_QUESTION)
             if input() == "yes":
@@ -54,8 +52,8 @@ class Centauri(Planet):
 
 
 class Sirius(Planet):
-    SIRIUS_DESCRIPTION = """You are on Sirius. The system is full of media companies and content delivery networks."""
-    SIRIUS_QUIZ_QUESTION = """You manage to get a place in *Stellar* - the greatest quiz show in the universe.
+    DESCRIPTION = """You are on Sirius. The system is full of media companies and content delivery networks."""
+    QUIZ_QUESTION = """You manage to get a place in *Stellar* - the greatest quiz show in the universe.
 Here is your question:
 
     Which star do you find on the shoulder of Orion?
@@ -65,32 +63,32 @@ Here is your question:
 [3] Aldebaran
 [4] Andromeda
 """
-    SIRIUS_QUIZ_CORRECT = """
+    QUIZ_CORRECT = """
 *Correct!!!* You win a ton or credits.
 """
-    SIRIUS_QUIZ_INCORRECT = """
+    QUIZ_INCORRECT = """
 Sorry, this was the wrong answer. Don't take it too sirius.
 Better luck next time.
 """
 
     @staticmethod
     def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
-        print(Sirius.SIRIUS_DESCRIPTION)
+        print(Sirius.DESCRIPTION)
         if not current_state.credits:
-            print(Sirius.SIRIUS_QUIZ_QUESTION)
+            print(Sirius.QUIZ_QUESTION)
             answer = input()
             if answer == "2":
-                print(Sirius.SIRIUS_QUIZ_CORRECT)
+                print(Sirius.QUIZ_CORRECT)
                 current_state.credits = True
             else:
-                print(Sirius.SIRIUS_QUIZ_INCORRECT)
+                print(Sirius.QUIZ_INCORRECT)
         return current_state
 
 
 class Orion(Planet):
-    ORION_DESCRIPTION = """
+    DESCRIPTION = """
 You are on Orion. An icy world inhabited by furry sentients."""
-    ORION_HIRE_COPILOT_QUESTION = """A tech-savvy native admires your spaceship.
+    HIRE_COPILOT_QUESTION = """A tech-savvy native admires your spaceship.
 They promise to join as a copilot if you can answer a question:
 
     What is the answer to question of life, the universe and everything?
@@ -100,27 +98,27 @@ What do you answer?"""
     @staticmethod
     def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
         if not current_state.copilot:
-            print(Orion.ORION_DESCRIPTION)
-            print(Orion.ORION_HIRE_COPILOT_QUESTION)
+            print(Orion.DESCRIPTION)
+            print(Orion.HIRE_COPILOT_QUESTION)
             if input() == "42":
                 print(game_texts.COPILOT_QUESTION_CORRECT)
                 current_state.copilot = True
             else:
                 print(game_texts.COPILOT_QUESTION_INCORRECT)
         else:
-            print(Orion.ORION_DESCRIPTION)
+            print(Orion.DESCRIPTION)
         return current_state
 
 
 class BlackHole(Planet):
-    BLACK_HOLE_DESCRIPTION = """You are close to Black Hole #0997. Maybe coming here was a really stupid idea.
+    DESCRIPTION = """You are close to Black Hole #0997. Maybe coming here was a really stupid idea.
 Do you want to examine the black hole closer? [yes/no]
 """
-    BLACK_HOLE_CRUNCHED = """The black hole condenses your spaceship into a grain of dust.
+    CRUNCHED = """The black hole condenses your spaceship into a grain of dust.
 
     THE END
 """
-    BLACK_HOLE_COPILOT_SAVES_YOU = """On the rim of the black hole your copilot blurts out:
+    COPILOT_SAVES_YOU = """On the rim of the black hole your copilot blurts out:
 
     Turn left!
 
@@ -129,13 +127,13 @@ You travel through other dimensions and experience wonders beyond description.
 """
 
     def run(self, current_state: game_state.GameOptions) -> game_state.GameOptions:
-        print(BlackHole.BLACK_HOLE_DESCRIPTION)
+        print(BlackHole.DESCRIPTION)
         if input() == "yes":
             if current_state.engines and current_state.copilot:
-                print(BlackHole.BLACK_HOLE_COPILOT_SAVES_YOU)
+                print(BlackHole.COPILOT_SAVES_YOU)
                 current_state.game_end = True
             else:
-                print(BlackHole.BLACK_HOLE_CRUNCHED)
+                print(BlackHole.CRUNCHED)
                 current_state.game_end = True
         return current_state
 
