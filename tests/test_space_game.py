@@ -1,6 +1,7 @@
 import io
 
 import pytest
+
 from space_game import engine
 
 # the actual solution to the game
