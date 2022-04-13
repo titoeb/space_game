@@ -17,7 +17,7 @@ def select_next_planet(destinations: planets.Destinations) -> planets.Planet:
 def initial_state() -> game_state.GameState:
     print(text.OPENING_MESSAGE)
     return game_state.GameState(
-        planet=planets.Earth,
+        planet=planets.Earth(),
         engines=False,
         credits=False,
         copilot=False,

@@ -14,23 +14,22 @@ class Destinations:
 
 
 class Planet(abc.ABC):
-    @abc.abstractclassmethod
+    @abc.abstractstaticmethod
     def run(
         current_state: game_state.GameState,
     ) -> game_state.GameState:
         pass
 
-    def __str__():
-        return "test"
-
 
 class Earth(Planet):
+    @staticmethod
     def run(current_state: game_state.GameState) -> game_state.GameState:
         print(text.EARTH_DESCRIPTION)
         return current_state
 
 
 class Centauri(Planet):
+    @staticmethod
     def run(current_state: game_state.GameState) -> game_state.GameState:
         print(text.CENTAURI_DESCRIPTION)
         if not current_state.engines:
@@ -44,6 +43,7 @@ class Centauri(Planet):
 
 
 class Sirius(Planet):
+    @staticmethod
     def run(current_state: game_state.GameState) -> game_state.GameState:
         print(text.SIRIUS_DESCRIPTION)
         if not current_state.credits:
@@ -58,6 +58,7 @@ class Sirius(Planet):
 
 
 class Orion(Planet):
+    @staticmethod
     def run(current_state: game_state.GameState) -> game_state.GameState:
         if not current_state.copilot:
             print(text.ORION_DESCRIPTION)
@@ -73,7 +74,7 @@ class Orion(Planet):
 
 
 class BlackHole(Planet):
-    def run(current_state: game_state.GameState) -> game_state.GameState:
+    def run(self, current_state: game_state.GameState) -> game_state.GameState:
         print(text.BLACK_HOLE_DESCRIPTION)
         if input() == "yes":
             if current_state.engines and current_state.copilot:
@@ -86,10 +87,14 @@ class BlackHole(Planet):
 
 
 def possible_destinations(current_planet: Planet) -> Destinations:
-    return {
-        Earth: Destinations(planets=[Centauri, Sirius]),
-        Centauri: Destinations(planets=[Earth, Orion]),
-        Sirius: Destinations(planets=[Orion, Earth, BlackHole]),
-        Orion: Destinations(planets=[Centauri, Sirius]),
-        BlackHole: Destinations(planets=[Sirius]),
-    }[current_planet]
+    match current_planet:
+        case Earth():
+            return Destinations(planets=[Centauri(), Sirius()])
+        case Centauri():
+            return Destinations(planets=[Earth(), Orion()])
+        case Sirius():
+            return Destinations(planets=[Orion(), Earth(), BlackHole()])
+        case Orion():
+            return Destinations(planets=[Centauri(), Sirius()])
+        case BlackHole():
+            return Destinations(planets=[Sirius()])
