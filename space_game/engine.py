@@ -37,7 +37,5 @@ def start_space_game():
         current_state_of_game = current_planet.run(current_state_of_game)
 
         if not current_state_of_game.game_end:
-            current_planet = select_next_planet(
-                planets.possible_destinations(current_planet)
-            )
+            current_planet = select_next_planet(planets.possible_destinations(current_planet))
     print(texts.END_CREDITS)
