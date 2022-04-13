@@ -20,6 +20,9 @@ class Planet(abc.ABC):
     ) -> game_state.GameState:
         pass
 
+    def __str__(self):
+        return self.__class__.__name__
+
 
 class Earth(Planet):
     @staticmethod
