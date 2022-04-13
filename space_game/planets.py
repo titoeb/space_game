@@ -138,12 +138,12 @@ You travel through other dimensions and experience wonders beyond description.
 def possible_destinations(current_planet: Planet) -> Destinations:
     match current_planet:
         case Earth():
-            return Destinations(planets=[Centauri(), Sirius()])
+            return Destinations(planets=[Centauri, Sirius])
         case Centauri():
-            return Destinations(planets=[Earth(), Orion()])
+            return Destinations(planets=[Earth, Orion])
         case Sirius():
-            return Destinations(planets=[Orion(), Earth(), BlackHole()])
+            return Destinations(planets=[Orion, Earth, BlackHole])
         case Orion():
-            return Destinations(planets=[Centauri(), Sirius()])
+            return Destinations(planets=[Centauri, Sirius])
         case BlackHole():
-            return Destinations(planets=[Sirius()])
+            return Destinations(planets=[Sirius])

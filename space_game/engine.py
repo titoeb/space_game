@@ -11,7 +11,7 @@ def select_next_planet(destinations: planets.Destinations) -> planets.Planet:
         position += 1
 
     choice = input()
-    return destinations.planets[int(choice) - 1]
+    return destinations.planets[int(choice) - 1]()
 
 
 def setup_game() -> Tuple[planets.Planet, state.GameOptions]:
