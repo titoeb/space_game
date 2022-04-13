@@ -25,8 +25,11 @@ def setup_game() -> Tuple[planets.Planet, state.GameOptions]:
     )
 
 
-def start_space_game():
+def wrap_up_game() -> None:
+    print(texts.END_CREDITS)
 
+
+def start_space_game() -> None:
     current_planet, current_state_of_game = setup_game()
     while not current_state_of_game.game_is_over:
         write_to_user.display_inventory(
@@ -40,4 +43,4 @@ def start_space_game():
             current_planet = select_next_planet(
                 planets.possible_destinations(current_planet)
             )
-    print(texts.END_CREDITS)
+    wrap_up_game()
