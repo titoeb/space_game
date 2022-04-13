@@ -3,7 +3,7 @@ from __future__ import annotations
 import dataclasses
 
 
-@dataclasses.dataclass(frozen=True, kw_only=True)
+@dataclasses.dataclass(kw_only=True)
 class GameState:
     planet: str
     engines: bool
