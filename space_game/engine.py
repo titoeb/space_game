@@ -18,24 +18,26 @@ def setup_game() -> Tuple[planets.Planet, state.GameOptions]:
     print(texts.OPENING_MESSAGE)
 
     return planets.Earth(), state.GameOptions(
-        engines=False,
-        credits=False,
-        copilot=False,
-        game_end=False,
+        has_hyperdrive_engine=False,
+        has_sufficient_credits=False,
+        has_copilot=False,
+        game_is_over=False,
     )
 
 
 def start_space_game():
 
     current_planet, current_state_of_game = setup_game()
-    while not current_state_of_game.game_end:
+    while not current_state_of_game.game_is_over:
         write_to_user.display_inventory(
-            credits=current_state_of_game.credits,
-            engines=current_state_of_game.engines,
-            copilot=current_state_of_game.engines,
+            has_sufficient_credits=current_state_of_game.has_sufficient_credits,
+            has_hyperdrive_engine=current_state_of_game.has_hyperdrive_engine,
+            has_copilot=current_state_of_game.has_hyperdrive_engine,
         )
         current_state_of_game = current_planet.run(current_state_of_game)
 
-        if not current_state_of_game.game_end:
-            current_planet = select_next_planet(planets.possible_destinations(current_planet))
+        if not current_state_of_game.game_is_over:
+            current_planet = select_next_planet(
+                planets.possible_destinations(current_planet)
+            )
     print(texts.END_CREDITS)

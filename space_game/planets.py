@@ -38,11 +38,11 @@ class Centauri(Planet):
     @staticmethod
     def run(current_state: state.GameOptions) -> state.GameOptions:
         print(Centauri.DESCRIPTION)
-        if not current_state.engines:
+        if not current_state.has_hyperdrive_engine:
             print(texts.HYPERDRIVE_SHOPPING_QUESTION)
             if input() == "yes":
-                if current_state.credits:
-                    current_state.engines = True
+                if current_state.has_sufficient_credits:
+                    current_state.has_hyperdrive_engine = True
                 else:
                     print(texts.HYPERDRIVE_TOO_EXPENSIVE)
         return current_state
@@ -71,12 +71,12 @@ Better luck next time.
     @staticmethod
     def run(current_state: state.GameOptions) -> state.GameOptions:
         print(Sirius.DESCRIPTION)
-        if not current_state.credits:
+        if not current_state.has_sufficient_credits:
             print(Sirius.QUIZ_QUESTION)
             answer = input()
             if answer == "2":
                 print(Sirius.QUIZ_CORRECT)
-                current_state.credits = True
+                current_state.has_sufficient_credits = True
             else:
                 print(Sirius.QUIZ_INCORRECT)
         return current_state
@@ -94,12 +94,12 @@ What do you answer?"""
 
     @staticmethod
     def run(current_state: state.GameOptions) -> state.GameOptions:
-        if not current_state.copilot:
+        if not current_state.has_copilot:
             print(Orion.DESCRIPTION)
             print(Orion.HIRE_COPILOT_QUESTION)
             if input() == "42":
                 print(texts.COPILOT_QUESTION_CORRECT)
-                current_state.copilot = True
+                current_state.has_copilot = True
             else:
                 print(texts.COPILOT_QUESTION_INCORRECT)
         else:
@@ -126,12 +126,12 @@ You travel through other dimensions and experience wonders beyond description.
     def run(self, current_state: state.GameOptions) -> state.GameOptions:
         print(BlackHole.DESCRIPTION)
         if input() == "yes":
-            if current_state.engines and current_state.copilot:
+            if current_state.has_hyperdrive_engine and current_state.has_copilot:
                 print(BlackHole.COPILOT_SAVES_YOU)
-                current_state.game_end = True
+                current_state.game_is_over = True
             else:
                 print(BlackHole.CRUNCHED)
-                current_state.game_end = True
+                current_state.game_is_over = True
         return current_state
 
 

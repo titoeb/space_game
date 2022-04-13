@@ -5,7 +5,7 @@ import dataclasses
 
 @dataclasses.dataclass(kw_only=True)
 class GameOptions:
-    engines: bool
-    credits: bool
-    copilot: bool
-    game_end: bool
+    has_hyperdrive_engine: bool
+    has_sufficient_credits: bool
+    has_copilot: bool
+    game_is_over: bool
