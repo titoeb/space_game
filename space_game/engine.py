@@ -29,7 +29,7 @@ def wrap_up_game() -> None:
     print(texts.END_CREDITS)
 
 
-def start_space_game() -> None:
+def run_space_game() -> None:
     current_planet, current_state_of_game = setup_game()
     while not current_state_of_game.game_is_over:
         write_to_user.display_inventory(
