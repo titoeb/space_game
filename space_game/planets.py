@@ -7,7 +7,7 @@ from typing import List
 
 from pyparsing import Or
 
-from space_game import game_state, game_texts
+from space_game import state, texts
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -18,8 +18,8 @@ class Destinations:
 class Planet(abc.ABC):
     @abc.abstractstaticmethod
     def run(
-        current_state: game_state.GameOptions,
-    ) -> game_state.GameOptions:
+        current_state: state.GameOptions,
+    ) -> state.GameOptions:
         pass
 
     def __str__(self):
@@ -30,7 +30,7 @@ class Earth(Planet):
     DESCRIPTION = "\nYou are on Earth. Beautiful is better than ugly."
 
     @staticmethod
-    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
+    def run(current_state: state.GameOptions) -> state.GameOptions:
         print(Earth.DESCRIPTION)
         return current_state
 
@@ -39,15 +39,15 @@ class Centauri(Planet):
     DESCRIPTION = "\nYou are on Alpha Centauri. All creatures are welcome here."
 
     @staticmethod
-    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
+    def run(current_state: state.GameOptions) -> state.GameOptions:
         print(Centauri.DESCRIPTION)
         if not current_state.engines:
-            print(game_texts.HYPERDRIVE_SHOPPING_QUESTION)
+            print(texts.HYPERDRIVE_SHOPPING_QUESTION)
             if input() == "yes":
                 if current_state.credits:
                     current_state.engines = True
                 else:
-                    print(game_texts.HYPERDRIVE_TOO_EXPENSIVE)
+                    print(texts.HYPERDRIVE_TOO_EXPENSIVE)
         return current_state
 
 
@@ -72,7 +72,7 @@ Better luck next time.
 """
 
     @staticmethod
-    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
+    def run(current_state: state.GameOptions) -> state.GameOptions:
         print(Sirius.DESCRIPTION)
         if not current_state.credits:
             print(Sirius.QUIZ_QUESTION)
@@ -96,15 +96,15 @@ They promise to join as a copilot if you can answer a question:
 What do you answer?"""
 
     @staticmethod
-    def run(current_state: game_state.GameOptions) -> game_state.GameOptions:
+    def run(current_state: state.GameOptions) -> state.GameOptions:
         if not current_state.copilot:
             print(Orion.DESCRIPTION)
             print(Orion.HIRE_COPILOT_QUESTION)
             if input() == "42":
-                print(game_texts.COPILOT_QUESTION_CORRECT)
+                print(texts.COPILOT_QUESTION_CORRECT)
                 current_state.copilot = True
             else:
-                print(game_texts.COPILOT_QUESTION_INCORRECT)
+                print(texts.COPILOT_QUESTION_INCORRECT)
         else:
             print(Orion.DESCRIPTION)
         return current_state
@@ -126,7 +126,7 @@ You ignite the next-gen hyperdrive, creating a time-space anomaly.
 You travel through other dimensions and experience wonders beyond description.
 """
 
-    def run(self, current_state: game_state.GameOptions) -> game_state.GameOptions:
+    def run(self, current_state: state.GameOptions) -> state.GameOptions:
         print(BlackHole.DESCRIPTION)
         if input() == "yes":
             if current_state.engines and current_state.copilot:
