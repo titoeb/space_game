@@ -2,17 +2,18 @@ from __future__ import annotations
 
 import abc
 import dataclasses
-from typing import List
+from typing import List, Type
 
 from space_game import state, texts
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class Destinations:
-    planets: List[Planet]
+    planets: List[Type[Planet]]
 
 
 class Planet(abc.ABC):
+    @staticmethod
     @abc.abstractstaticmethod
     def run(
         current_state: state.GameOptions,
@@ -123,7 +124,8 @@ You ignite the next-gen hyperdrive, creating a time-space anomaly.
 You travel through other dimensions and experience wonders beyond description.
 """
 
-    def run(self, current_state: state.GameOptions) -> state.GameOptions:
+    @staticmethod
+    def run(current_state: state.GameOptions) -> state.GameOptions:
         print(BlackHole.DESCRIPTION)
         if input() == "yes":
             if current_state.has_hyperdrive_engine and current_state.has_copilot:
@@ -133,6 +135,12 @@ You travel through other dimensions and experience wonders beyond description.
                 print(BlackHole.CRUNCHED)
                 current_state.game_is_over = True
         return current_state
+
+
+class UnkownPlanetError(ValueError):
+    """The provided planet does not exists."""
+
+    pass
 
 
 def possible_destinations(current_planet: Planet) -> Destinations:
@@ -147,3 +155,4 @@ def possible_destinations(current_planet: Planet) -> Destinations:
             return Destinations(planets=[Centauri, Sirius])
         case BlackHole():
             return Destinations(planets=[Sirius])
+    raise UnkownPlanetError(f"The provided planet is of type {type(current_planet)} which is not supported.")
