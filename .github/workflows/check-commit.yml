@@ -22,7 +22,7 @@ jobs:
           python-version: ${{ matrix.python_version }}
       - name: Install poetry, and then install dependency of project.
         run: pip install poetry && poetry update && poetry install
-      - name: Run unit-tests
+      - name: Run unit tests with `pytest`.
         run: poetry run pytest
   
   flake8:
@@ -36,7 +36,7 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
       - name: Install poetry, and then install dependency of project.
         run: pip install poetry && poetry update && poetry install
-      - name: Run unit-tests
+      - name: Lint the code with `flake8`.
         run: poetry run flake8
 
   black:
@@ -50,7 +50,7 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
       - name: Install poetry, and then install dependency of project.
         run: pip install poetry && poetry update && poetry install
-      - name: Run unit-tests
+      - name: Check formatting with `black`.
         run: poetry run black --check --line-length 120 .
 
   isort:
@@ -64,7 +64,7 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
       - name: Install poetry, and then install dependency of project.
         run: pip install poetry && poetry update && poetry install
-      - name: Run unit-tests
+      - name: Check Imports with `isort`.
         run: poetry run isort --check .
 
   mypy:
@@ -78,6 +78,6 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON_VERSION }}
       - name: Install poetry, and then install dependency of project.
         run: pip install poetry && poetry update && poetry install
-      - name: Run unit-tests
+      - name: Check typing with `mypy`.
         run: poetry run mypy .
 
