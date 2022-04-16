@@ -9,4 +9,4 @@
 
 
 # space_game
-Refactoring the `space_game` code from PyConDE2022.
+Refactoring the `space_game` code from PyConDE2022. The session was held by [**krother**](https://github.com/krother) and the original source code can be found [here](https://github.com/krother/refactoring_tutorial).
