@@ -1,3 +1,4 @@
+"""Main functionality driving the game mechanics."""
 from typing import Tuple
 
 from space_game import planets, state, texts, write_to_user

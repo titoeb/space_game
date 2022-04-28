@@ -1,3 +1,6 @@
+"""Write out information to the player."""
+
+
 def display_inventory(*, has_sufficient_credits: bool, has_hyperdrive_engine: bool, has_copilot: bool) -> None:
     print("-" * 79)
     inventory = "\nYou have: "
