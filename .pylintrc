@@ -1,0 +1,7 @@
+[MASTER]
+disable=
+    missing-function-docstring, # It is not necessary to document all functions.
+    missing-class-docstring, # It is not necessary to document all classes.
+    too-few-public-methods, # Small classes should not be discouraged.
+[FORMAT]
+max-line-length=120
