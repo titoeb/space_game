@@ -1,3 +1,4 @@
+"""Text that is displayed throughout the space-game."""
 OPENING_MESSAGE = """
 -------------------------------------------------------------------------------
 

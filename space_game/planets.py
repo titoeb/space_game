@@ -1,3 +1,4 @@
+"""Definition of the different planets that can be visited."""
 from __future__ import annotations
 
 import abc
@@ -139,8 +140,6 @@ You travel through other dimensions and experience wonders beyond description.
 
 class UnkownPlanetError(ValueError):
     """The provided planet does not exists."""
-
-    pass
 
 
 def possible_destinations(current_planet: Planet) -> Destinations:
