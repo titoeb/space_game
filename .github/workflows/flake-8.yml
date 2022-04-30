@@ -20,4 +20,6 @@ jobs:
         run: pip install poetry && poetry update && poetry install
       - name: Lint the code with `flake8`.
         run: poetry run flake8
+      - name: Check code-complexity with radon.
+        run: poetry run flake8 --radon-max-cc 10 .
 
